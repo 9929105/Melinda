@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <meta charset="UTF-8"> 
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+  <script>
+var app = angular.module('searchApp',[]);
+app.controller('searchCtrl',function($scope, $http){
+  $scope.msg1 = '$scope is working';
+  $http.get('//localhost:8000/textmap/')
+       .success(function(resp){
+           $scope.msg2 = '$http is working';
+           $scope.textmap = resp;
+       });
+});
+  </script>
+<body>
+
+<div ng-app="searchApp" ng-controller="searchCtrl">
+  <p>Name: <input type="text" ng-model="name"></p>
+  <p ng-bind="name"></p>
+  <p ng-bind="msg1"></p>
+  <p ng-bind="msg2"></p>
+  <p ng-bind="textmap"></p>
+  <ul>
+    <li ng-repeat="x in textmap">
+      {{x.free_text}}
+    </li>
+  </ul>
+</div>
+
+</body>
+</html>
