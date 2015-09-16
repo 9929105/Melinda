@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+<meta content="utf-8" http-equiv="encoding">
+<head>
+<style type="text/css" media="screen">
+
+table{
+border-collapse:collapse;
+border:1px solid #FF0000;
+}
+
+table td{
+border:1px solid #FF0000;
+}
+</style>
+<script type="text/javascript">
+
+var nomenclaturelink = "//localhost:8000/nomenclature/";
+var textmaplink = "//localhost:8000/textmap/";
+
+
+var nomenclatures={};
+var textmap={};
+
+
+function getResponse(url, type){
+ 	var xmlhttp = new XMLHttpRequest();	
+	xmlhttp.onreadystatechange=function() {
+	    if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+	    	parseResponse(xmlhttp.responseText, type);
+	    }
+	}
+	xmlhttp.open("GET", url+"?format=json", true);
+	xmlhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+	xmlhttp.send(); 
+	
+}
+
+
+
+function parseResponse(response, type) {
+	var obj = JSON.parse(response)
+	if (obj["next"] != null) {
+		curlink = obj["next"]	
+	}
+	if (type=='NOMENCLATURE') {
+		parseNomenclatures(obj)
+	} else if (type=='TEXTMAP'){
+		parseTextMap(obj)
+	} 
+}
+
+
+function parseNomenclatures(objArray) {
+	nomenclatures = objArray
+	document.getElementById('nomenclature_table').innerHTML = "";
+	var result_table = document.getElementById('nomenclature_table');
+	var tr = document.createElement("tr");
+	tr.innerHTML = "<td>Code</td><td>Description</td><td>Coding System</td><td>Popularity</td>";
+
+	result_table.appendChild(tr);
+		
+	for (idx in objArray){
+		var obj = objArray[idx];
+		
+		tr = document.createElement("tr");
+		
+		tr.refObject = obj;
+		tr.innerHTML +=
+				"<td>"+obj["code_identifier"]+"</td>"+
+			   	"<td>"+obj["display"]+"</td>"+
+				"<td>"+obj["coding_system"]+"</td>"+
+				"<td>"+obj["popularity"]+"</td>";
+				
+		result_table.appendChild(tr);
+	}	
+}
+
+
+function parseTextMap(objArray) {
+	allEncntrs = objArray;
+	document.getElementById('textMap_table').innerHTML = "";
+	var result_table = document.getElementById('textMap_table');
+	var tr = document.createElement("tr");
+	tr.innerHTML = "<td>free_text</td><td>Nomenclature Code</td><td>Display</td><td>Coding System</td><td>Popularity</td>";
+
+	result_table.appendChild(tr);
+		
+	for (idx in objArray){
+		var obj = objArray[idx];
+		
+		tr = document.createElement("tr");
+		
+		tr.refObject = obj;
+		tr.innerHTML +=
+				"<td>"+obj["free_text"]+"</td>"+
+			   	"<td>"+obj["nomenclature"]["code_identifier"]+"</td>"+
+				"<td>"+obj["nomenclature"]["display"]+"</td>"+
+				"<td>"+obj["nomenclature"]["coding_system"]+"</td>"+
+				"<td>"+obj["nomenclature"]["popularity"]+"</td>";
+		result_table.appendChild(tr);
+	}	
+}
+
+
+
+
+</script>
+</head>
+<body>
+
+
+<h1>Melinda </h1>
+
+<div id="Nomenclature Browser">
+	<p> Nomenclature List </p>
+		<button type="button" onclick="getResponse(nomenclaturelink,'NOMENCLATURE')">Get All Nomenclature</button>
+	<p>Nomenclatures</p>
+	<table id="nomenclature_table"></table>
+</div>
+
+<br>
+<div id="TextMap Browser">
+	<button type="button" onclick="getResponse(textmaplink, 'TEXTMAP')">Get TextMap</button>
+	<p> TextMap</p>
+	<table id="textMap_table"></table>
+</div>
+
+
+
+</body>
+</html>
+

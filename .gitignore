@@ -1,0 +1,6 @@
+# Directories
+/venv/
+
+# Files
+/db.sqlite3
+*.py[co]
