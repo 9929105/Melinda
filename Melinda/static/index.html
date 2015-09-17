@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Melinda</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.0/angular-touch.min.js"></script>
+  
+  <link rel="stylesheet" href="css/structure.css"/>
+  <link rel="stylesheet" href="css/angucomplete-alt.css"/>
+  <link rel="stylesheet" href="fonts/bariol/bariol.css"/>
+  
+  <script src="angucomplete-alt.js"></script>
+  
+</head>
+<body>
+
+
+<div ng-app="searchApp" ng-controller="searchCtrl">
+
+	<div class="container">
+		<div class="panel panel-default">
+			<h1>Melinda</h1>
+  			<div class="panel-body">Powered by Infobutton</div>
+		</div>
+	 	  <div class="large-padded-row">
+		  <div class="result">
+            	Query URL:  <span ng-bind="url" class="bold-span"></span> 
+          </div>
+     	</div>
+     	
+     	<div class="padded-row">
+     	</div>
+     	
+        <div class="large-padded-row">
+			<div angucomplete-alt id="ex1" 
+				placeholder="Search terms" 
+				maxlength="50" 
+				pause="100" 
+				selected-object="openURL" 
+				local-data=autolist 
+				search-fields="display" 
+				title-field="display"
+				minlength="1" 
+				input-class="form-control form-control-small" 
+				match-class="highlight">
+		</div>
+		          	
+    	</div>
+        
+     	<div class="padded-row">
+     		<p ng-bind="debugmsg"></p>
+     	</div>
+     	
+	</div>
+</div>
+
+<script>
+
+ 
+var app = angular.module('searchApp',["ngTouch", "angucomplete-alt"]);
+app.controller('searchCtrl',function($scope, $http){
+	$http.get('//localhost:8000/nomenclature/')
+		.success(function(response)	{
+			$scope.autolist=response;		
+		});
+	$scope.server = "http://service.oib.utah.edu:8080/infobutton-service/infoRequest?";
+	$scope.orgId = "1.3.6.1.4.1.5884";
+	$scope.vocab_sys = "2.16.840.1.113883.6.96";
+	$scope.url = null;
+	$scope.buildURL = function(selected) {
+		var req = $scope.server;
+		$scope.debugmsg = selected;
+		if (selected != null){
+			req = req + "representedOrganization.id.root="+$scope.orgId;
+			req = req + "&taskContext.c.c=PROBLISTREV";
+			req = req + "&mainSearchCriteria.v.c="+selected.code_identifier;
+			req = req + "&mainSearchCriteria.v.cs="+"2.16.840.1.113883.6.96";
+			req = req + "&mainSearchCriteria.v.dn="+selected.display;
+			req = req + "&encounter.c.c=AMB";
+			req = req + "&informationRecipient=PROV";
+			req = req + "informationRecipient.languageCode.c=en";
+			req = req + "informationRecipient.healthCareProvider.c.c=200000000X";
+			req = req + "performer=PROV";
+			req = req + "performer.languageCode.c=en";
+			req = req + "performer.healthCareProvider.c.c=200000000X";
+		}	
+		return req;
+	};
+	
+	$scope.openURL = function(selectedTerm) {
+		$scope.selectedTerm = selectedTerm;
+		$scope.url = $scope.buildURL(selectedTerm.originalObject);
+		window.location.href =$scope.url;
+		
+	}
+});
+
+</script>
+</body>
+</html>
