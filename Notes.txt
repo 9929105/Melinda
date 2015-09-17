@@ -1,0 +1,7 @@
+CHPC instance
+http://service.oib.utah.edu:8000/app/#/home
+Test tool - http://lite.bmi.utah.edu/InfobuttonQA.html
+
+
+ITS instance (production)
+http://cisopeninfo.hsc.utah.edu:8000/app/#/home
