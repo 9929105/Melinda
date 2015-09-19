@@ -13,11 +13,11 @@ router = routers.DefaultRouter()
 router.register(r'textmap', views.TextMapViewSet)
 router.register(r'nomenclature',views.NomenclatureViewSet)
 
-
-
 urlpatterns = patterns('',
-    url(r'^', include(router.urls)),
+    url(r'^$', views.index),
+
+    url(r'^api/', include(router.urls)),
+    url(r'^api-auth/',include('rest_framework.urls', namespace='rest_framework')),
 
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^api-auth/',include('rest_framework.urls',namespace='rest_framework')),
 )

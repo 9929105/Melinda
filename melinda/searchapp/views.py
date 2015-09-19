@@ -1,3 +1,5 @@
+from django.shortcuts import render
+
 from rest_framework import viewsets
 
 from .models import Nomenclature, Textmap
@@ -11,3 +13,8 @@ class NomenclatureViewSet(viewsets.ModelViewSet):
 class TextMapViewSet(viewsets.ModelViewSet):
     queryset = Textmap.objects.all()
     serializer_class = TextmapSerializer
+
+
+def index(request):
+    context = {}
+    return render(request, 'searchapp/index.html', context)
