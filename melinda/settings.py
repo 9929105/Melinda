@@ -13,8 +13,8 @@ TEMPLATE_DEBUG = DEBUG
 SECRET_KEY = '_9u%s^w(*ejjm3#ea@&!v&dt_tq_8f)tyjq9(h(7!gf1ls_qly'
 
 
-ROOT_URLCONF = 'Melinda.urls'
-WSGI_APPLICATION = 'Melinda.wsgi.application'
+ROOT_URLCONF = 'melinda.urls'
+WSGI_APPLICATION = 'melinda.wsgi.application'
 
 LANGUAGE_CODE = 'en-us'
 USE_I18N = True
@@ -45,7 +45,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'Melinda.searchapp',
+    'melinda.searchapp',
     'corsheaders',
     'rest_framework',
 )

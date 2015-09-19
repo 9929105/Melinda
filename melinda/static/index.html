@@ -15,46 +15,49 @@
   <link rel="stylesheet" href="css/angucomplete-alt.css"/>
   <link rel="stylesheet" href="fonts/bariol/bariol.css"/>
   
-  <script src="angucomplete-alt.js"></script>
+  <script src="angucomplete-alt.min.js"></script>
   
 </head>
 <body>
 
 
-<div ng-app="searchApp" ng-controller="searchCtrl">
+<div ng-app="searchApp" ng-controller="searchCtrl" 	ng-keypress="searchboxKeyPress($event)">
 
 	<div class="container">
 		<div class="panel panel-default">
-			<h1>Melinda</h1>
+			<h1>melinda</h1>
   			<div class="panel-body">Powered by Infobutton</div>
 		</div>
-	 	  <div class="large-padded-row">
-		  <div class="result">
-            	Query URL:  <span ng-bind="url" class="bold-span"></span> 
-          </div>
-     	</div>
+	 	
      	
      	<div class="padded-row">
      	</div>
-     	
+     	<div class="row">
+     	<div class="col-xs-12">
         <div class="large-padded-row">
 			<div angucomplete-alt id="ex1" 
 				placeholder="Search terms" 
 				maxlength="50" 
 				pause="100" 
-				selected-object="openURL" 
+				selected-object="selectedItem" 
 				local-data=autolist 
 				search-fields="display" 
 				title-field="display"
 				minlength="1" 
 				input-class="form-control form-control-small" 
-				match-class="highlight">
+				match-class="highlight"
+				auto-match="true">
+				
+		</div>
+		</div>
 		</div>
 		          	
     	</div>
         
-     	<div class="padded-row">
-     		<p ng-bind="debugmsg"></p>
+   		<div class="large-padded-row">
+		  <div class="result">
+            	Query URL:  <span ng-show="selectedItem" class="bold-span">{{selectedItem.originalObject.display}}</span> 
+          </div>
      	</div>
      	
 	</div>
@@ -65,14 +68,16 @@
  
 var app = angular.module('searchApp',["ngTouch", "angucomplete-alt"]);
 app.controller('searchCtrl',function($scope, $http){
-	$http.get('//localhost:8000/nomenclature/')
+
+	$http.get('//localhost:8000/nomenclature/?format=json')
 		.success(function(response)	{
 			$scope.autolist=response;		
-		});
+		}); 
 	$scope.server = "http://service.oib.utah.edu:8080/infobutton-service/infoRequest?";
 	$scope.orgId = "1.3.6.1.4.1.5884";
 	$scope.vocab_sys = "2.16.840.1.113883.6.96";
 	$scope.url = null;
+	$scope.selectedItem = null;
 	$scope.buildURL = function(selected) {
 		var req = $scope.server;
 		$scope.debugmsg = selected;
@@ -98,7 +103,16 @@ app.controller('searchCtrl',function($scope, $http){
 		$scope.url = $scope.buildURL(selectedTerm.originalObject);
 		window.location.href =$scope.url;
 		
-	}
+	};
+	
+	$scope.searchboxKeyPress = function(keyEvent) {
+		if (keyEvent.which == 13){
+			  $scope.url = $scope.buildURL($scope.selectedItem.originalObject);
+			  window.location.href=$scope.url;
+			  window.alert(keyEvent.which);
+		}
+	};
+	$scope.callback = $scope.searchboxKeyPress;
 });
 
 </script>
