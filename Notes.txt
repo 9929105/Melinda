@@ -5,3 +5,8 @@ Test tool - http://lite.bmi.utah.edu/InfobuttonQA.html
 
 ITS instance (production)
 http://cisopeninfo.hsc.utah.edu:8000/app/#/home
+
+
+http://service.oib.utah.edu:8080/openInfobutton/assetManager/assetProperties/{id}
+
+http://service.oib.utah.edu:8080/openInfobutton/assetManager/assets
