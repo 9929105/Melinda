@@ -1,0 +1,59 @@
+.toggle.ios, .toggle-on.ios, .toggle-off.ios { 
+	border-radius: 15px;
+
+}
+  .toggle.ios .toggle-handle { 
+  	border-radius: 15px;
+  	}
+ .toggle-off {
+    position: absolute;
+    top: 0px;
+    bottom: 0px;
+    left: 60%;
+    right: 0px;
+    margin: 0px;
+    border: 0px none;
+    border-radius: 0px;
+}
+  
+ .slow .toggle-group { transition: left 0.7s; -webkit-transition: left 0.7s; }
+ .fast .toggle-group { transition: left 0.1s; -webkit-transition: left 0.1s; }
+ .quick .toggle-group { transition: none; -webkit-transition: none; }
+ 
+ body {
+      background-image: url("/static/img/background1.jpg");
+      background-repeat: no-repeat;
+      background-size:cover
+}
+
+h1 {
+    font-size: 700%;
+    color: #180000 ;
+    
+}
+.panel-transparent {
+        background: none;
+}
+
+.panel-transparent .panel-heading{
+        background: rgba(196, 178, 155, 0.2)!important;
+}
+
+.panel-transparent .panel-body{
+        background: rgba(196,178,155, 0.2)!important;
+}
+.panel-transparent .panel-footer{
+        background: rgba(196,178,155, 0.2)!important;
+}
+input {
+  background: rgba(240, 240, 240, 0.7)!important;
+	
+}
+
+
+ .form-group-large, .form-group-lg {
+      display: inline-block;
+      margin-bottom: 0;
+      vertical-align: middle;
+      width:107%;
+    }

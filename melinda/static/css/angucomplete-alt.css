@@ -11,6 +11,7 @@
     padding: 6px;
     cursor: pointer;
     z-index: 9999;
+    opacity: 0.8;
     position: absolute;
     /*top: 32px;
     left: 0px;
@@ -29,7 +30,7 @@
 }
 
 .angucomplete-row {
-    padding: 5px;
+    padding: 2px;
     color: #000000;
     margin-bottom: 4px;
     clear: both;
@@ -41,16 +42,17 @@
 }
 
 .angucomplete-image-holder {
-    padding-top: 2px;
-    float: left;
-    margin-right: 10px;
-    margin-left: 5px;
+    padding-top: 0px;
+    float: right;
+    
+    margin-right: 2px;
+    margin-left: 2px;
 }
 
 .angucomplete-image {
-    height: 34px;
-    width: 34px;
-    border-radius: 50%;
+    height: 20px;
+    width: 20px;
+    border-radius: 0%;
     border-color: #ececec;
     border-style: solid;
     border-width: 1px;
@@ -62,6 +64,6 @@
     */
     background-position: center;
     background-size: contain;
-    height: 34px;
-    width: 34px;
+    height: 20px;
+    width: 20px;
 }

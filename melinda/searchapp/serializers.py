@@ -6,7 +6,8 @@ from .models import Nomenclature, Textmap
 class NomenclatureSerializer(serializers.ModelSerializer):
     class Meta:
         model = Nomenclature
-        #fields=('code_identifier', 'display', 'coding_system', 'popularity')
+        
+        
         
 class TextmapSerializer(serializers.ModelSerializer):
     nomenclature = NomenclatureSerializer()
