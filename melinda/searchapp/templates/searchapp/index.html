@@ -40,19 +40,15 @@
 	<div class="container">
 		<div class="panel panel-transparent">
 			<h1><strong>melinda</strong></h1>
-			<div class="panel-body text-left"><strong>Curated Medical Resource Index<strong></div>
+			<div class="panel-body text-left"><strong>Medical Resource Index<strong></div>
   			
   			<div class="panel-foot text-right"><strong>Powered by Infobutton<strong></div>
 		</div>
 	 	
-		<div class="row text-center">
-     	<!-- 	<div class="btn-group"> -->	
+		<!-- 	<div class="btn-group"> -->	
 	 	<!-- - 	<label class="btn btn-info" ng-model="radioModel" btn-radio="'Inpatient'">Inpatient</label> -->
    	 	<!-- -<label class="btn btn-info" ng-model="radioModel" btn-radio="'Ambulatory'">Ambulatory</label> - -->
-	    	
-	    
-	    	<!--  </div>-->
-     	</div>
+	   	<!--  </div>-->
      	<div class="row text-center">
      	 <input toggle-checkbox
 	     		data-size="normal"  
@@ -67,9 +63,7 @@
 	    		>
      	</div>
      	<div class="row text-center"><strong>Clinical Setting:{{setting}}</strong></div>
-     	
-	 	  <div class="form-group form-group-lg">
-	 	  
+      	  
         	<div angucomplete-alt id="ex1" 
 				placeholder="Search terms" 
 				maxlength="50" 
@@ -162,7 +156,7 @@ app.controller('searchCtrl',function($scope, $http){
 	 };
 
 	 $scope.getPic=function(result){
-		if (result.display==="Knee Pain") {
+		if (result.isExclusive==true) {
 			return "/static/img/uuhs-logo_small.png";
 		}
 	 };

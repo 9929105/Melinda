@@ -20,5 +20,6 @@ urlpatterns = patterns('',
     url(r'^api-auth/',include('rest_framework.urls', namespace='rest_framework')),
 
     url(r'^admin/', include(admin.site.urls)),
+    url(r'^admin/refreshdb/',admin.site.admin_view(views.refreshdb) )
 ) 
 urlpatterns += staticfiles_urlpatterns()

@@ -7,10 +7,13 @@ class Nomenclature(models.Model):
     coding_sys_cd = models.CharField(max_length=100)
     display = models.CharField(max_length=2000)
     popularity = models.IntegerField(default=0)
-    org_doc = models.BooleanField(default=False)
+    isExclusive = models.BooleanField(default=False)
     attribute_string = models.CharField(max_length=5000, default='{}')
+    class Meta:
+        unique_together=(('code_identifier','coding_sys_cd'))
+
     def __str__(self):
-        return u'({0}){1}[{2}]'.format(self.code_identifier, self.display, self.coding_system, self.attribute_string)
+        return u'({0}){1}[{2}{3}{4}]'.format(self.code_identifier, self.display, self.coding_system, self.attribute_string, self.isExclusive)
     
 class Textmap(models.Model):
     free_text = models.CharField(max_length=1000)
