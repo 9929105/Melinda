@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>melinda</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/static/fonts/bariol/bariol.css"/>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.0/angular-touch.min.js"></script>
+  
+  <link href='//fonts.googleapis.com/css?family=Italianno|Sacramento' rel='stylesheet' type='text/css'>
+  
+  <link rel="stylesheet" href="/static/css/structure.css"/>
+  <link rel="stylesheet" href="/static/bootstrapui/ui-bootstrap-0.13.4-csp.css"/>
+  
+  <link rel="stylesheet" href="/static/css/angucomplete-alt.css"/>
+
+  
+  
+ 
+  <script src="/static/angucomplete-alt-melinda.js"></script>
+  
+  <script src="/static/bootstrapui/ui-bootstrap-0.13.4.min.js"></script>
+
+  <link href="//gitcdn.github.io/bootstrap-toggle/2.2.0/css/bootstrap-toggle.min.css" rel="stylesheet">
+  <script src="//gitcdn.github.io/bootstrap-toggle/2.2.0/js/bootstrap-toggle.min.js"></script>
+  
+  <link rel="stylesheet" href="/static/css/melinda.css"/>  
+</head>
+<body>
+
+{% verbatim %}
+
+
+<div ng-app="searchApp" ng-controller="searchCtrl" 	ng-keypress="searchboxKeyPress($event)">
+
+	<div class="container">
+		<div class="panel panel-transparent">
+			<h1><strong>melinda</strong></h1>
+			<div class="panel-body text-left"><strong>Medical Resource Index<strong></div>
+  			
+  			<div class="panel-foot text-right"><strong>Powered by Infobutton<strong></div>
+		</div>
+	 	
+		<!-- 	<div class="btn-group"> -->	
+	 	<!-- - 	<label class="btn btn-info" ng-model="radioModel" btn-radio="'Inpatient'">Inpatient</label> -->
+   	 	<!-- -<label class="btn btn-info" ng-model="radioModel" btn-radio="'Ambulatory'">Ambulatory</label> - -->
+	   	<!--  </div>-->
+     	<div class="row text-center">
+     	 <input toggle-checkbox
+	     		data-size="normal"  
+	     		data-style="ios"
+	     		ng-model="settingSwitch" 
+	     		ng-change="togglesetting()" 
+	     		type="checkbox" 	
+	    		data-on="Inpatient" 
+	    		data-off="Ambulatory" 
+	    		data-onstyle="primary" 
+	    		data-offstyle="danger" 
+	    		>
+     	</div>
+     	<strong>Clinical Setting:{{setting}}</strong>
+      	  
+        	<div angucomplete-alt id="ex1" 
+				placeholder="Search terms" 
+				maxlength="50" 
+				pause="100" 
+				selected-object="selectedItem" 
+           	    remote-url="/api/nomenclature/?format=json&search="
+            	remote-url-data-field="results"
+            	image-field = getPic
+				search-fields="display" 
+				title-field="display"
+				minlength="2" 
+				input-class="form-control form-control-large" 
+				match-class="highlight"
+				auto-match="true">
+				
+			</div>
+		</div>
+		
+        <div class="large-padded-row">
+		  <div class="result">
+            	Query URL:  <span ng-show="selectedItem" class="bold-span">{{selectedItem.originalObject.display}}</span> 
+          </div>
+     	</div>
+     	
+	</div>
+</div>
+
+<script>
+
+ 
+var app = angular.module('searchApp',["ui.bootstrap","ngTouch", "angucomplete-alt"]);
+app.controller('searchCtrl',function($scope, $http){
+/*
+	$http.get('/api/nomenclature/?format=json')
+		.success(function(response)	{
+			$scope.autolist=response;		
+		}); 
+*/
+	$scope.mydata="hello world?";
+	$scope.server = "http://service.oib.utah.edu:8080/infobutton-service/infoRequest?";
+	$scope.orgId = "1.3.6.1.4.1.5884";
+	$scope.vocab_sys = "2.16.840.1.113883.6.96";
+	$scope.url = null;
+	$scope.setting = "INPATIENT";
+	$scope.settingSwitch = true;
+	$scope.selectedItem = null;
+	$scope.buildURL = function(selected) {
+		var req = $scope.server;
+		$scope.debugmsg = selected;
+		if (selected != null){
+			req = req + "representedOrganization.id.root="+$scope.orgId;
+			req = req + "&taskContext.c.c=PROBLISTREV";
+			req = req + "&mainSearchCriteria.v.c="+selected.code_identifier;
+			req = req + "&mainSearchCriteria.v.cs="+"2.16.840.1.113883.6.96";
+			req = req + "&mainSearchCriteria.v.dn="+selected.display;
+			req = req + "&encounter.c.c=AMB";
+			req = req + "&informationRecipient=PROV";
+			req = req + "informationRecipient.languageCode.c=en";
+			req = req + "informationRecipient.healthCareProvider.c.c=200000000X";
+			req = req + "performer=PROV";
+			req = req + "performer.languageCode.c=en";
+			req = req + "performer.healthCareProvider.c.c=200000000X";
+		}	
+		return req;
+	};
+	
+	$scope.openURL = function(selectedTerm) {
+		$scope.selectedTerm = selectedTerm;
+		$scope.url = $scope.buildURL(selectedTerm.originalObject);
+		window.location.href =$scope.url;
+		
+	};
+	
+	$scope.searchboxKeyPress = function(keyEvent) {
+		if (keyEvent.which == 13){
+			  $scope.url = $scope.buildURL($scope.selectedItem.originalObject);
+			  window.location.href=$scope.url;
+		}
+	};
+	$scope.callback = $scope.searchboxKeyPress;
+	
+	
+	$scope.togglesetting= function(){
+			if ($scope.settingSwitch){
+				$scope.setting = "INPATIENT";
+			}
+			else{
+				$scope.setting = "AMBULATORY"
+			}
+	 };
+
+	 $scope.getPic=function(result){
+		if (result.isExclusive==true) {
+			return "/static/img/uuhs-logo_small.png";
+		}
+	 };
+});
+
+
+app.directive('toggleCheckbox', function($timeout) {
+
+    /**
+     * Directive
+     */
+    return {
+        restrict: 'A',
+        transclude: true,
+        replace: false,
+        require: 'ngModel',
+        link: function ($scope, $element, $attr, ngModel) {
+
+            // update model from Element
+            var updateModelFromElement = function() {
+                // If modified
+                var checked = $element.prop('checked');
+                
+                if (checked != ngModel.$viewValue) {
+                    // Update ngModel
+                    ngModel.$setViewValue(checked);
+                    $scope.$apply();
+                }
+            };
+
+            // Update input from Model
+            var updateElementFromModel = function(newValue) {
+                $element.trigger('change');
+            };
+
+            // Observe: Element changes affect Model
+            $element.on('change', function() {
+                updateModelFromElement();
+            });
+
+            $scope.$watch(function() {
+              return ngModel.$viewValue;
+            }, function(newValue) { 
+              updateElementFromModel(newValue);
+            }, true);
+
+            // Initialise BootstrapToggle
+            $element.bootstrapToggle();
+        }
+    };
+});
+
+
+
+
+</script>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-68369495-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+{% endverbatim %}
+
+</body>
+</html>
