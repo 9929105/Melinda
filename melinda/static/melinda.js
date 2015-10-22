@@ -12,10 +12,12 @@ app.controller('searchCtrl',function($scope, $http){
 	$scope.server = "http://service.oib.utah.edu:8080/infobutton-service/infoRequest?";
 	$scope.orgId = "1.3.6.1.4.1.5884";
 	$scope.vocab_sys = "2.16.840.1.113883.6.96";
+	$scope.loadingStatus= ""; 
 	$scope.url = null;
 	$scope.setting = "INPATIENT";
 	$scope.settingSwitch = true;
 	$scope.selectedItem = null;
+	
 	$scope.buildURL = function(selected) {
 		var req = $scope.server;
 		$scope.debugmsg = selected;
@@ -27,20 +29,59 @@ app.controller('searchCtrl',function($scope, $http){
 			req = req + "&mainSearchCriteria.v.dn="+selected.display;
 			req = req + "&encounter.c.c=AMB";
 			req = req + "&informationRecipient=PROV";
-			req = req + "informationRecipient.languageCode.c=en";
-			req = req + "informationRecipient.healthCareProvider.c.c=200000000X";
-			req = req + "performer=PROV";
-			req = req + "performer.languageCode.c=en";
-			req = req + "performer.healthCareProvider.c.c=200000000X";
+			req = req + "&informationRecipient.languageCode.c=en";
+			req = req + "&informationRecipient.healthCareProvider.c.c=200000000X";
+			req = req + "&performer=PROV";
+			req = req + "&performer.languageCode.c=en";
+			req = req + "&performer.healthCareProvider.c.c=200000000X";
 		}	
 		return req;
 	};
 	
-	$scope.openURL = function(selectedTerm) {
-		$scope.selectedTerm = selectedTerm;
-		$scope.url = $scope.buildURL(selectedTerm.originalObject);
-		window.location.href =$scope.url;
+	
+	$scope.selectTerm = function(selectedTerm) {
+		if (selectedTerm) {
+			$scope.selectedTerm = selectedTerm;
+			$scope.selectedItem= selectedTerm;
+			$scope.url = $scope.buildURL(selectedTerm.originalObject);
+			
+		}
+	};
+	
+	
+	$scope.openURL = function() {
+		if ($scope.url) {
+			window.location.href =$scope.url;
+		}
+	};
+	$scope.getResults = function(selectedTerm){
+		if (selectedTerm) {
+			$scope.loadingStatus = "Loading result. . . .";
+			$scope.selectedTerm = selectedTerm;
+			$http.get($scope.buildURL(selectedTerm)+"&knowledgeResponseType=application/json").success(function(data) {
+	            $scope.curResultSet = data;
+	    		$scope.parseResults($scope.curResultSet)
+	    		$scope.loadingStatus = "Result:";
+	        });
+		}
+	};
+	
+	
+	
+	$scope.parseResults=function(resultSet){
 		
+		$scope.resultDisplay = [];
+		for ( var i= 0; i < resultSet.feed.length; i++) {
+			if (resultSet.feed[i].title.value[0].search("UUHC")>= 0){
+				for (var j=0; j<resultSet.feed[i].entry.length;j++){
+					$scope.resultDisplay.push(
+							{	title: resultSet.feed[i].entry[0].title.value[0],
+								href:resultSet.feed[i].entry[0].link[0].href,
+								updated:resultSet.feed[i].entry[0].updated
+							})
+				}
+			}
+		}
 	};
 	
 	$scope.searchboxKeyPress = function(keyEvent) {
@@ -51,6 +92,11 @@ app.controller('searchCtrl',function($scope, $http){
 	};
 	$scope.callback = $scope.searchboxKeyPress;
 	
+	$scope.$watch(function(scope){
+		if (scope.selectedItem){
+		return scope.selectedItem.originalObject
+		}},
+			$scope.getResults)
 	
 	$scope.togglesetting= function(){
 			if ($scope.settingSwitch){

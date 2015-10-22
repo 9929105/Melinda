@@ -21,5 +21,7 @@ class Textmap(models.Model):
     
     def __str__(self):
         return u'{0}->{1}'.format(self.free_text, self.nomenclature.code_identifier)
+    
 
+    
     

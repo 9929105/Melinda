@@ -49,9 +49,12 @@
     $templateCache.put(TEMPLATE_URL,
         '<div class="angucomplete-holder" ng-class="{\'angucomplete-dropdown-visible\': showDropdown}">' +
         '<div class="input-group">'+
+        '  <span class="input-group-btn">'+
+        '<button class="btn btn-default" type="button"><span class="caret"></span></button>'+
+        '</span>'+
         '  <input id="{{id}}_value" name="{{inputName}}" ng-class="{\'angucomplete-input-not-empty\': notEmpty}" ng-model="searchStr" ng-disabled="disableInput" type="{{inputType}}" placeholder="{{placeholder}}" maxlength="{{maxlength}}" ng-focus="onFocusHandler()" class="{{inputClass}}" ng-focus="resetHideResults()" ng-blur="hideResults($event)" autocapitalize="off" autocorrect="off" autocomplete="off" ng-change="inputChangeHandler(searchStr)"/>' +      
         '   <span class="input-group-btn">'+
-        '		<button class="btn btn-default" type="button"> <span class="glyphicon glyphicon-search"></span> Search</button>'+   
+        '		<button class="btn btn-default" type="button" ng-click="searchBtnOnClick()"> <span class="glyphicon glyphicon-search"></span></button>'+   
         '	</span>'+
         
         '</div>' +
@@ -73,6 +76,7 @@
         '  </div>' +
         '</div>'
     );
+
 
     function link(scope, elem, attrs, ctrl) {
       var inputField = elem.find('input');
@@ -132,6 +136,12 @@
           clearResults();
         }
       });
+
+      scope.searchBtnOnClick = function(){
+      	if (typeof scope.searchButtonClick ==="function") {
+      		scope.searchButtonClick();
+      	}
+      }
 
       // #194 dropdown list not consistent in collapsing (bug).
       function clickoutHandlerForDropdown(event) {
@@ -688,7 +698,9 @@
         }
         return str;
       };
-
+      
+   
+      
       // check required
       if (scope.fieldRequiredClass && scope.fieldRequiredClass !== '') {
         requiredClassName = scope.fieldRequiredClass;
@@ -790,7 +802,8 @@
         focusOut: '&',
         focusIn: '&',
         inputName: '@',
-        focusFirst: '@'
+        focusFirst: '@',
+        searchButtonClick:'='
       },
       templateUrl: function(element, attrs) {
         return attrs.templateUrl || TEMPLATE_URL;

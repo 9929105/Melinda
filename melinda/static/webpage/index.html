@@ -156,13 +156,19 @@
         <!-- Page Content -->
         <div id="page-wrapper">
             <div class="container-fluid">
+            	<div class="row">
+		  			  <div class="col-lg-12">
+            			Search Term Selected:  <span ng-show="selectedItem" class="bold-span">{{selectedItem.originalObject.display}}</span> 
+          			</div>
+                    <!-- /.col-lg-12 -->
+                </div>
                 <div class="row">
                     <div class="col-lg-12">
                     	   <div angucomplete-alt id="searchbox" 
 								placeholder="Search terms" 
 								maxlength="50" 
 								pause="100" 
-								selected-object="selectedItem" 
+								selected-object="selectTerm" 
            	    				remote-url="/api/nomenclature/?format=json&search="
             					remote-url-data-field="results"
             					image-field = getPic
@@ -173,15 +179,29 @@
 								input-class="form-control form-control-large" 
 								match-class="highlight"
 								auto-match="true"
-								searchbuttonText = "hello?">
+								search-button-click =openURL>
 					  </div>
      				</div> 
 				</div>
-				<div class="row">
-		  			  <div class="col-lg-12">
-            			Search Term Selected:  <span ng-show="selectedItem" class="bold-span">{{selectedItem.originalObject.display}}</span> 
-          			</div>
-                    <!-- /.col-lg-12 -->
+				
+                <div class="row">
+                	 <div class="col-lg-12">
+                	 	<p> {{loadingStatus}} </p>
+                	 </div>
+                </div>
+	            <div class="row">
+                    <div class="col-lg-12">
+                      <div class="panel-group">
+    						<div class="panel panel-default" ng-repeat="x in resultDisplay">
+						      <div class="panel-heading">
+						      		<a href={{x.href}}>{{x.title}}</a></br>
+						      		<cite> {{x.href}}</cite></br>
+						      		<p class="metadata">Last update: {{x.updated.value.month+"/"+x.updated.value.day+"/"+x.updated.value.year}}</p>
+						      </div>
+				
+						    </div>
+					  </div>
+                	 </div>
                 </div>
                 <!-- /.row -->
             </div>
