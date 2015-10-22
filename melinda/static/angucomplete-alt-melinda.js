@@ -50,7 +50,31 @@
         '<div class="angucomplete-holder" ng-class="{\'angucomplete-dropdown-visible\': showDropdown}">' +
         '<div class="input-group">'+
         '  <span class="input-group-btn">'+
-        '<button class="btn btn-default" type="button"><span class="caret"></span></button>'+
+        '<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" ><span class="fa fa-wrench fa-fw"></span> <span class="caret"></span></button>'+
+        '<ul class="dropdown-menu">'+
+        '<li>'+
+        '<span class="btn-group" role="group" aria-label="..." ng-click="$event.stopPropagation();">'+
+        '<button type="button" class="btn btn-default">Inpatient</button>'+
+        '<button type="button" class="btn btn-default">Ambulatory</button>'+
+        '</span>'+
+      	'</li>'+
+        '<li role="separator" class="divider"></li>'+
+        '<li>'+
+        '<div class="btn-group" role="group" aria-label="...">'+
+        '<button type="button" class="btn btn-default">Provider</button>'+
+        '<button type="button" class="btn btn-default">Patient</button>'+
+        '</div>'+
+      	'</li>'+
+        '<li role="separator" class="divider"></li>'+
+        '<li>'+
+        '<div class="btn-group" role="group" aria-label="...">'+
+        '<button type="button" class="btn btn-default">Only UUHSC</button>'+
+        '<button type="button" class="btn btn-default">All</button>'+
+        '</div>'+
+      	'</li>'+
+        '<li role="separator" class="divider"></li>'+
+        '<li><a href="#">Other Settings:</a></li>'+
+        '</ul>'+
         '</span>'+
         '  <input id="{{id}}_value" name="{{inputName}}" ng-class="{\'angucomplete-input-not-empty\': notEmpty}" ng-model="searchStr" ng-disabled="disableInput" type="{{inputType}}" placeholder="{{placeholder}}" maxlength="{{maxlength}}" ng-focus="onFocusHandler()" class="{{inputClass}}" ng-focus="resetHideResults()" ng-blur="hideResults($event)" autocapitalize="off" autocorrect="off" autocomplete="off" ng-change="inputChangeHandler(searchStr)"/>' +      
         '   <span class="input-group-btn">'+
@@ -77,7 +101,8 @@
         '</div>'
     );
 
-
+    
+    
     function link(scope, elem, attrs, ctrl) {
       var inputField = elem.find('input');
       var minlength = MIN_LENGTH;

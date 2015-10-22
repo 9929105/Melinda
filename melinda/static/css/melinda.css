@@ -103,6 +103,9 @@ input {
     top: -10px;
 }
 
-
+.dropdown-menu {
+    width: 300px !important;
+    height: 400px !important;
+}
 
  
