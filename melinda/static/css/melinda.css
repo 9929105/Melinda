@@ -25,7 +25,12 @@
     padding-right: 30px:
 }
 
-
+.navbar-brand{
+	background-image: url("/static/img/melinda_logo.jpg");
+	background-repeat:no-repeat;
+    background-size:contain;
+    width:150px;height:50px;
+}
 
 .buttonLabel {
 	align-text:center;
@@ -74,7 +79,10 @@ input {
 	font-size:x-small;
 	font-style: normal;
  } 
-    
+ 
+ #titleIcon{
+ 	 background: blue;
+ }
  .metadata{
  	color: #545454;
 	font-size:x-small;
