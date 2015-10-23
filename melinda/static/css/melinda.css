@@ -123,11 +123,11 @@ input {
     top: -10px;
 }
 
-.dropdown-menu {
+/* .dropdown-menu {
     width: 300px !important;
     height: 400px !important;
-}
-#page-wrapper {
+} */
+/* #page-wrapper {
     position: inherit;
     margin: 0px 0px 0px 150px;
     padding: 0px 30px;
@@ -139,5 +139,5 @@ input {
     position: absolute;
     width: 150px;
     margin-top: 51px;
-}
+} */
  
