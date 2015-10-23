@@ -9,7 +9,7 @@ app.controller('searchCtrl',function($scope, $http){
 		}); 
 */
 	$scope.mydata="hello world?";
-	$scope.server = "http://service.oib.utah.edu:8080/infobutton-service/infoRequest?";
+	$scope.server = "//service.oib.utah.edu:8080/infobutton-service/infoRequest?";
 	$scope.orgId = "1.3.6.1.4.1.5884";
 	$scope.vocab_sys = "2.16.840.1.113883.6.96";
 	$scope.loadingStatus= ""; 
