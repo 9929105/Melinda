@@ -67,7 +67,7 @@ app.controller('searchCtrl',function($scope, $http){
 	};
 	
 	
-	
+/*	
 	$scope.parseResults=function(resultSet){
 		
 		$scope.resultDisplay = [];
@@ -75,7 +75,8 @@ app.controller('searchCtrl',function($scope, $http){
 		for ( var i= 0; i < resultSet.feed.length; i++) {
 			
 			$scope.feeds.push(
-					{	title: resultSet.feed[i].title.value[0]
+					{	title: resultSet.feed[i].title.value[0],
+						entry: resultSet.feed[i].entry
 					});
 			
 			if (resultSet.feed[i].title.value[0].search("UUHC")>= 0){
@@ -91,6 +92,38 @@ app.controller('searchCtrl',function($scope, $http){
 				}
 			}
 		}
+	};*/
+	
+	
+	$scope.parseResults=function(resultSet){
+		
+		$scope.resultDisplay = [];
+		$scope.feeds=[];
+		for ( var i= 0; i < resultSet.feed.length; i++) {
+			
+			$scope.feeds.push(
+					{	title: resultSet.feed[i].title.value[0],
+						entry: resultSet.feed[i].entry
+					});
+			
+			if (resultSet.feed[i].title.value[0].search("UUHC")>= 0){
+				$scope.parserFeedEntry(resultSet.feed[i])
+			}
+		}
+	};
+	
+	$scope.parserFeedEntry=function(feed) {
+		if (feed){
+			$scope.resultDisplay = [];
+			for (var j=0; j<feed.entry.length;j++){
+				$scope.resultDisplay.push(
+						{	title: feed.entry[0].title.value[0],
+							href:feed.entry[0].link[0].href,
+							updated:feed.entry[0].updated
+						});
+			}
+		}
+			
 	};
 	
 	$scope.searchboxKeyPress = function(keyEvent) {

@@ -79,8 +79,8 @@
                       	
                       	
                       	
-                      	<li ng-repeat="x in feeds">
-							{{x.title}}			
+                      	<li ng-repeat="x in feeds" ng-click=parserFeedEntry(x)>
+							<a href>{{x.title}}</a>			
                         </li>
                         
                         
