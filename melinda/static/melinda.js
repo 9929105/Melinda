@@ -71,14 +71,23 @@ app.controller('searchCtrl',function($scope, $http){
 	$scope.parseResults=function(resultSet){
 		
 		$scope.resultDisplay = [];
+		$scope.feeds=[];
 		for ( var i= 0; i < resultSet.feed.length; i++) {
+			
+			$scope.feeds.push(
+					{	title: resultSet.feed[i].title.value[0]
+					});
+			
 			if (resultSet.feed[i].title.value[0].search("UUHC")>= 0){
 				for (var j=0; j<resultSet.feed[i].entry.length;j++){
+					
+			
+							
 					$scope.resultDisplay.push(
 							{	title: resultSet.feed[i].entry[0].title.value[0],
 								href:resultSet.feed[i].entry[0].link[0].href,
 								updated:resultSet.feed[i].entry[0].updated
-							})
+							});
 				}
 			}
 		}

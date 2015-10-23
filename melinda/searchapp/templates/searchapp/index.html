@@ -67,26 +67,6 @@
             </div>
             <!-- /.navbar-header -->
 
-            <ul class="nav navbar-top-links navbar-right">
-                <!-- /.dropdown -->
-                <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                        <i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
-                    </a>
-                    <ul class="dropdown-menu dropdown-user">
-                        <li><a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>
-                        </li>
-                        <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
-                        </li>
-                        <li class="divider"></li>
-                        <li><a href="login.html"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
-                        </li>
-                    </ul>
-                    <!-- /.dropdown-user -->
-                </li>
-                <!-- /.dropdown -->
-            </ul>
-            <!-- /.navbar-top-links -->
 
             <div class="navbar-default sidebar" role="navigation">
                 <div class="sidebar-nav navbar-collapse">
@@ -95,57 +75,13 @@
                       	<li>
                       		 <i class="fa fa-rss fa-fw"></i> Feed:
                       	</li>
-                      	<li>
-                      		<div class="row buttonRow">
-                      		<span class="buttonLabel">Content Scope:</span>
-	                        	<span class=side-menu-buttons>
-				     	 			<input toggle-checkbox
-					     				data-size="small"  
-					     				data-style="ios"
-					     				ng-model="scopeSwitch" 
-					     				ng-change="togglesetting()" 
-					     				type="checkbox" 	
-					    				data-on="Internal" 
-					    				data-off="All" 
-					    				data-onstyle="primary" 
-					    				data-offstyle="primary" />
-				     			</span>
-				     		</div>
+                      	
+                      	
+                      	
+                      	<li ng-repeat="x in feeds">
+							{{x.title}}			
                         </li>
-                        <li>	
-                            <div class="row buttonRow">
-    	                  		<span class="buttonLabel">Care settings:</span>
-	    	                    	<span class=side-menu-buttons>
-					     	 			<input toggle-checkbox
-					     				data-size="small"  
-				    	 				data-style="ios"
-				     					ng-model="settingSwitch" 
-				     					ng-change="togglesetting()" 
-				     					type="checkbox" 	
-				    					data-on="Inpatient" 
-				    					data-off="Ambulatory" 
-				    					data-onstyle="primary" 
-				    					data-offstyle="primary" />
-				     				</span>
-				     		</div>
-                        </li>
-                        <li>	
-                           <div class="row buttonRow">
-    	                  		<span class="buttonLabel">Audience:</span>
-	    	                    	<span class=side-menu-buttons>
-					     	 			<input toggle-checkbox
-				     						data-size="small"  
-				     						data-style="ios"
-				     						ng-model="audienceSwitch" 
-				     						ng-change="togglesetting()" 
-				     						type="checkbox" 	
-				    						data-on="Provier" 
-				    						data-off="Patient" 
-				    						data-onstyle="primary" 
-				    						data-offstyle="primary" />
-				     				</span>
-				     		</div>                        
-                        </li>
+                        
                         
 
                     </ul>
