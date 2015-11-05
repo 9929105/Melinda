@@ -21,7 +21,7 @@ class NomenclatureViewSet(viewsets.ModelViewSet):
     queryset = Nomenclature.objects.all()
     serializer_class = NomenclatureSerializer
     filter_backends = (filters.SearchFilter,)
-    search_fields = ('display','attribute_string','coding_sys_cd',)
+    search_fields = ('display','attributes','coding_sys_cd',)
     paginate_by = 5000
 
 class TextMapViewSet(viewsets.ModelViewSet):
@@ -44,9 +44,23 @@ def refreshdb(request):
         for line in data_file.readlines():
             tup= line.partition("|")
             code = tup[0]
-            codeSys=tup[2].partition("|")[0]
-            tmpNoms.append((code,codeSys))
+            disp=tup[2].partition("|")[0]
+            tmpNoms.append((code,disp,''))
     
+    
+    r=requests.get('http://service.oib.utah.edu:8080/openInfobutton/assetManager/assets') 
+
+    
+    j_obj=r.json()
+    for jo in j_obj:
+        if jo['namespaceCd']==u'hsc.utah.edu':
+            disp = jo['displayName']
+            if jo['assetUrl']:
+                url =  jo['assetUrl']
+            else:
+                url=''
+            
+            tmpNoms.append((disp, disp, url))
     
     
     for nom in tmpNoms:
@@ -58,14 +72,16 @@ def refreshdb(request):
         defaults["display"]=nom[1]
         defaults["coding_system"]=coding_system
         defaults["coding_sys_cd"]=coding_sys_cd
+        defaults["url"] = nom[2]
+        if defaults["url"] !='':
+            defaults["isExclusive"] = True
         instance, created = Nomenclature.objects.get_or_create(defaults=defaults, **ids_row)
+        
         """    if instance:
             pprint(">>{0}".format(str(instance)))
         else:
             pprint("++{0}".format(str(created)))
         """ 
-    
-
     
     
     r=requests.get('http://service.oib.utah.edu:8080/openInfobutton/assetManager/assets') 

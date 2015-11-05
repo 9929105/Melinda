@@ -8,12 +8,14 @@ class Nomenclature(models.Model):
     display = models.CharField(max_length=2000)
     popularity = models.IntegerField(default=0)
     isExclusive = models.BooleanField(default=False)
-    attribute_string = models.CharField(max_length=5000, default='{}')
+    attributes = models.CharField(max_length=5000, default='')
+    url =  models.CharField(max_length=5000, default='')
+    description = models.CharField(max_length=10000, default='')
     class Meta:
         unique_together=(('code_identifier','coding_sys_cd'))
 
     def __str__(self):
-        return u'({0}){1}[{2}{3}{4}]'.format(self.code_identifier, self.display, self.coding_system, self.attribute_string, self.isExclusive)
+        return u'({0}){1}[{2}{3}{4}]'.format(self.code_identifier, self.display, self.coding_system, self.attributes, self.isExclusive)
     
 class Textmap(models.Model):
     free_text = models.CharField(max_length=1000)
@@ -23,5 +25,5 @@ class Textmap(models.Model):
         return u'{0}->{1}'.format(self.free_text, self.nomenclature.code_identifier)
     
 
-    
+
     
