@@ -12,3 +12,5 @@ http://service.oib.utah.edu:8080/openInfobutton/assetManager/assetProperties/{id
 http://service.oib.utah.edu:8080/openInfobutton/assetManager/assets
 
 https://obscure-springs-8864.herokuapp.com/
+
+git push heroku master
