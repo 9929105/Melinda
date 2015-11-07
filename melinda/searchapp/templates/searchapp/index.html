@@ -49,7 +49,7 @@
   		function invokeSearch(term){
 	    	var elem = document.getElementById("searchbox_value");
 	    	elem.value = term;
-	    	elem.change();
+	    	elem.trigger("change");
 	    	
 	    	//elem.keypress();
 	    }
