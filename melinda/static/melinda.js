@@ -30,10 +30,10 @@ app.controller('searchCtrl',function($scope, $http){
 	    	//elem.keypress();
 	    }
 		  // Add our commands to annyang
-		annyang.addCommands(commands);
+		$scope.annyang.addCommands(commands);
 
 // 	Start listening. You can call this here, or attach this call to an event, button, etc.
-		annyang.start();
+		$scope.annyang.start();
 	}
 	
 	$scope.buildURL = function(selected) {
