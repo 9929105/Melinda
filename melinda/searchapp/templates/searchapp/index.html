@@ -44,9 +44,10 @@
 		if (annyang) {
 		  // Let's define our first command. First the text we expect, and then the function it should call
   		var commands = {
-		    'show me *term':function(term){
-		    	var element = document.getElementById("searchbox_value");
-		    	element.value = term
+		    'Melinda search for *term':function(term){
+		    	var elem = document.getElementById("searchbox_value");
+		    	elem.value = term
+		    	elem.keypress();
 		    }
 		  };
 
@@ -115,12 +116,6 @@
             	<div class="row">
 		  			  <div class="col-lg-12">
             			Search Term Selected:  <span ng-show="selectedItem" class="bold-span">{{selectedItem.originalObject.display}}</span> 
-          			</div>
-                    <!-- /.col-lg-12 -->
-                </div>
-                <div class="row">
-		  			  <div class="col-lg-12">
-            			Search Term Selected:  <span ng-show="selectedItem" class="bold-span">{{voiceSearch}}</span> 
           			</div>
                     <!-- /.col-lg-12 -->
                 </div>
