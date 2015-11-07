@@ -10,12 +10,12 @@ app.controller('searchCtrl',function($scope, $http){
 */
 	
 	var commands = {
-		    'search for *term':invokeSearch(term){
+		    'search for *term':function(term){
 		    	var elem = document.getElementById("searchbox_value");
 		    	elem.value = term;
 		    	$scope.searchStr=term;
 		    	$scope.$apply();
-		    };
+		    }
   	
 	    	//elem.keypress();
 	};
