@@ -44,15 +44,15 @@
 		if (annyang) {
 		  // Let's define our first command. First the text we expect, and then the function it should call
   		var commands = {
-		    'search for *term':function(term){
-		    	var elem = document.getElementById("searchbox_value");
-		    	elem.value = term;
-		    	elem.onchange();
-		    	
-		    	//elem.keypress();
-		    };
+		    'search for *term':invokeSearch
 		  };
-
+  		function invokeSearch(term){
+	    	var elem = document.getElementById("searchbox_value");
+	    	elem.value = term;
+	    	elem.onchange();
+	    	
+	    	//elem.keypress();
+	    }
 		  // Add our commands to annyang
   		annyang.addCommands(commands);
 
