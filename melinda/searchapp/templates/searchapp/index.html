@@ -47,6 +47,8 @@
 		    'search for *term':function(term){
 		    	var elem = document.getElementById("searchbox_value");
 		    	elem.value = term
+		    	elem.onchange();
+		    	
 		    	//elem.keypress();
 		    }
 		  };
