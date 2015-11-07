@@ -45,7 +45,8 @@
 		  // Let's define our first command. First the text we expect, and then the function it should call
   		var commands = {
 		    'show me *term':function(term){
-		    	voiceSearch = term
+		    	var element = document.getElementById("searchbox_value");
+		    	element.value = term
 		    }
 		  };
 
