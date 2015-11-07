@@ -8,6 +8,24 @@ app.controller('searchCtrl',function($scope, $http){
 			$scope.autolist=response;		
 		}); 
 */
+	
+	var commands = {
+		    'search for *term':invokeSearch(term){
+		    	var elem = document.getElementById("searchbox_value");
+		    	elem.value = term;
+		    	$scope.searchStr=term;
+		    	$scope.$apply();
+		    };
+  	
+	    	//elem.keypress();
+	};
+		  // Add our commands to annyang
+  	annyang.addCommands(commands);
+
+  // 	Start listening. You can call this here, or attach this call to an event, button, etc.
+  	annyang.start();
+  		
+  		
 	$scope.mydata="hello world?";
 	$scope.server = "//service.oib.utah.edu:8080/infobutton-service/infoRequest?";
 	$scope.orgId = "1.3.6.1.4.1.5884";
@@ -17,24 +35,6 @@ app.controller('searchCtrl',function($scope, $http){
 	$scope.setting = "INPATIENT";
 	$scope.settingSwitch = true;
 	$scope.selectedItem = null;
-	if ($scope.annyang) {
-		  // Let's define our first command. First the text we expect, and then the function it should call
-		var commands = {
-		    'search for *term':invokeSearch
-		  };
-		function invokeSearch(term){
-	    	var elem = document.getElementById("searchbox_value");
-	    	elem.value = term;
-	    	$scope.inputChangeHandler(term);
-	    	
-	    	//elem.keypress();
-	    }
-		  // Add our commands to annyang
-		$scope.annyang.addCommands(commands);
-
-// 	Start listening. You can call this here, or attach this call to an event, button, etc.
-		$scope.annyang.start();
-	}
 	
 	$scope.buildURL = function(selected) {
 		var req = $scope.server;
