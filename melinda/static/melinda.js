@@ -13,8 +13,10 @@ app.controller('searchCtrl',function($scope, $http){
 		    'search for *term':function(term){
 		    	var elem = document.getElementById("searchbox_value");
 		    	elem.value = term;
+		    	elem.trigger('change');
 		    	$scope.searchStr=term;
 		    	$scope.$apply();
+		    	
 		    }
   	
 	    	//elem.keypress();
