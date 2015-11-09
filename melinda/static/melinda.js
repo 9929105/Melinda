@@ -8,8 +8,8 @@ app.controller('searchCtrl',function($scope, $http){
 			$scope.autolist=response;		
 		}); 
 */
-	
-	var commands = {
+	if (annyang){
+		var commands = {
 		    'search for *term':function(term){
 		    	var elem = document.getElementById("searchbox_value");
 		    	elem.value = term;
@@ -20,13 +20,13 @@ app.controller('searchCtrl',function($scope, $http){
 		    }
   	
 	    	//elem.keypress();
-	};
+		};
 		  // Add our commands to annyang
-  	annyang.addCommands(commands);
+  		annyang.addCommands(commands);
 
-  // 	Start listening. You can call this here, or attach this call to an event, button, etc.
-  	annyang.start();
-  		
+  	// 	Start listening. You can call this here, or attach this call to an event, button, etc.
+  		annyang.start();
+	}
   		
 	$scope.mydata="hello world?";
 	$scope.server = "//service.oib.utah.edu:8080/infobutton-service/infoRequest?";
