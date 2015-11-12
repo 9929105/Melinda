@@ -7,7 +7,7 @@ app.controller('searchCtrl',function($scope, $http){
 		.success(function(response)	{
 			$scope.autolist=response;		
 		}); 
-
+*/
   		
 	$scope.mydata="hello world?";
 	$scope.server = "//service.oib.utah.edu:8080/infobutton-service/infoRequest?";
