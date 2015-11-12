@@ -101,27 +101,6 @@
         '</div>'
     );
 
-    
-	if (annyang){
-		var commands = {
-		    'melinda search for *term':function(term){
-//		    	var elem = document.getElementById("searchbox_value");
-//		    	elem.value = term;	
-//		    	elem.trigger('change');
-		    	scope.searchStr=term;
-		    	scope.$apply();
-		    	
-		    }
-  	
-	    	//elem.keypress();
-		};
-		  // Add our commands to annyang
-  		annyang.addCommands(commands);
-
-  	// 	Start listening. You can call this here, or attach this call to an event, button, etc.
-  		annyang.start();
-	}
-    
     function link(scope, elem, attrs, ctrl) {
       var inputField = elem.find('input');
       var minlength = MIN_LENGTH;
@@ -138,6 +117,29 @@
       var displaySearching;
       var displayNoResults;
 
+
+      
+  	if (annyang){
+  		var commands = {
+  		    'melinda search for *term':function(term){
+//  		    	var elem = document.getElementById("searchbox_value");
+//  		    	elem.value = term;	
+//  		    	elem.trigger('change');
+  		    	scope.searchStr=term;
+  		    	scope.$apply();
+  		    	
+  		    }
+    	
+  	    	//elem.keypress();
+  		};
+  		  // Add our commands to annyang
+    		annyang.addCommands(commands);
+
+    	// 	Start listening. You can call this here, or attach this call to an event, button, etc.
+    		annyang.start();
+  	}
+      
+      
       elem.on('mousedown', function(event) {
         if (event.target.id) {
           mousedownOn = event.target.id;
