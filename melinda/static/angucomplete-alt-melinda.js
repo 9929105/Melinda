@@ -127,8 +127,7 @@
 //  		    	elem.trigger('change');
   		    	scope.searchStr=term;
   		    	scope.$apply();
-  		    	scope.inputChangeHandler(scope.searchStr);
-  		    	scope.listenEvent();
+  		    	listenEvent();
   		    	
   		    }
     	
@@ -285,7 +284,6 @@
       }
 
       function listenEvent() {
-    	  event.preventDefault();
             if (!scope.showDropdown && scope.searchStr && scope.searchStr.length >= minlength) {
               initResults();
               scope.searching = true;
