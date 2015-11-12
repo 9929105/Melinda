@@ -101,11 +101,10 @@
         '</div>'
     );
 
-    */
+    
 	if (annyang){
 		var commands = {
 		    'melinda search for *term':function(term){
-		    	$scope.searchStr = term;
 //		    	var elem = document.getElementById("searchbox_value");
 //		    	elem.value = term;	
 //		    	elem.trigger('change');
