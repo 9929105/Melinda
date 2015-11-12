@@ -128,6 +128,7 @@
   		    	scope.searchStr=term;
   		    	scope.$apply();
   		    	scope.inputChangeHandler(scope.searchStr);
+  		    	scope.listenEvent();
   		    	
   		    }
     	
@@ -283,7 +284,7 @@
         }
       }
 
-      function changeEventHandler(event) {
+      function listenEvent() {
     	  event.preventDefault();
             if (!scope.showDropdown && scope.searchStr && scope.searchStr.length >= minlength) {
               initResults();
@@ -807,7 +808,6 @@
       // register events
       inputField.on('keydown', keydownHandler);
       inputField.on('keyup input', keyupHandler);
-      inputField.on('change', changeEventHandler);
       
       // set response formatter
       responseFormatter = callFunctionOrIdentity('remoteUrlResponseFormatter');
