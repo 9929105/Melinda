@@ -108,8 +108,8 @@
 //		    	var elem = document.getElementById("searchbox_value");
 //		    	elem.value = term;	
 //		    	elem.trigger('change');
-		    	$scope.searchStr=term;
-		    	$scope.$apply();
+		    	scope.searchStr=term;
+		    	scope.$apply();
 		    	
 		    }
   	
