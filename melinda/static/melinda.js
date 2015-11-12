@@ -11,9 +11,10 @@ app.controller('searchCtrl',function($scope, $http){
 	if (annyang){
 		var commands = {
 		    'melinda search for *term':function(term){
-		    	var elem = document.getElementById("searchbox_value");
-		    	elem.value = term;
-		    	elem.trigger('change');
+		    	$scope.searchStr = term;
+//		    	var elem = document.getElementById("searchbox_value");
+//		    	elem.value = term;
+//		    	elem.trigger('change');
 		    	$scope.searchStr=term;
 		    	$scope.$apply();
 		    	
