@@ -125,8 +125,9 @@
 //  		    	var elem = document.getElementById("searchbox_value");
 //  		    	elem.value = term;	
 //  		    	elem.trigger('change');
-  		    	searchStr=term;
+  		    	scope.searchStr=term;
   		    	scope.$apply();
+  		    	scope.inputChangeHandler(searchStr);
   		    	
   		    }
     	
