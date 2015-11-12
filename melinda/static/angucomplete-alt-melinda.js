@@ -127,7 +127,7 @@
 //  		    	elem.trigger('change');
   		    	scope.searchStr=term;
   		    	scope.$apply();
-  		    	scope.inputChangeHandler(searchStr);
+  		    	scope.inputChangeHandler(scope.searchStr);
   		    	
   		    }
     	
