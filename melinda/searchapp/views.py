@@ -20,8 +20,9 @@ from django.views.i18n import null_javascript_catalog
 class NomenclatureViewSet(viewsets.ModelViewSet):
     queryset = Nomenclature.objects.all()
     serializer_class = NomenclatureSerializer
-    filter_backends = (filters.SearchFilter,)
+    filter_backends = (filters.SearchFilter,filters.OrderingFilter, )
     search_fields = ('display','attributes','coding_sys_cd',)
+    ordering_fields = ('popularity', 'isExclusive', 'display',)
     paginate_by = 5000
 
 class TextMapViewSet(viewsets.ModelViewSet):
